@@ -1,0 +1,4 @@
+# pip install -r requirements.txt
+
+psycopg[binary] # Pythons postgres connection driver
+python-dotenv # Reads local .env settings
