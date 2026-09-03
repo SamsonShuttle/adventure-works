@@ -5,6 +5,7 @@ import psycopg                          # Module for working with postgres db.
 from dotenv import load_dotenv          # Allows py to load variables from .env file
 from pathlib import Path                # Path is used to work on folder paths in an easier way
 
+from staging import parse_sql_schema
 from setup import sql_runner
 
 load_dotenv()  
@@ -24,9 +25,12 @@ try:
       print(f"Connected to {database} as {user}")
 except psycopg.Error as error:
   print(f"Database error: {error}")
+
   
 # sql initial setup 
 sql_runner.execute_sql_file(conn)
+sql_runner.execute_sql_code(conn, parse_sql_schema.generate_staging_sql())
+
 conn.commit()
 print("All SQL files committed successfully")
 conn.close()

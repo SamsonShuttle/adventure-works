@@ -26,7 +26,14 @@ def execute_sql_file(connection, sql_files=sql_files):
       print(f"{sql_file.name} failed: {error}")
       raise
   
-  
+def execute_sql_code(connection, sql_code):
+    try:
+      with connection.cursor() as cur:
+        cur.execute(sql_code)
+        print(f"SQL code complete")
+    except (OSError, psycopg.Error) as error: # OSError handles file errors, psycopg handles pg errors
+      print(f"SQL Code failed: {error}")
+      raise
 
 
 
