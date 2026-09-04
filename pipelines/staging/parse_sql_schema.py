@@ -3,10 +3,10 @@
 import re # Provides regular expression parsing
 import psycopg
 from pathlib import Path
+from pipelines.common import paths
 
-project_root = Path(__file__).resolve().parents[2]
-data_folder = project_root / "data" / "AdventureWorks-oltp-install-script"
-sql_file = data_folder / "instawdb.sql" 
+AW_data_folder = paths.DATA_FOLDER / "AdventureWorks-oltp-install-script"
+sql_file = AW_data_folder / "instawdb.sql" 
 sql_code = sql_file.read_text(encoding="utf-8")
 
 def build_create_table_sql(table_name, columns):
@@ -82,7 +82,7 @@ column_pattern =  (
 #  print(source_schema, table_name)
 
 # Matching CSV names to tables inside the sql server code
-csv_files = sorted(data_folder.glob("*.csv"))
+csv_files = sorted(AW_data_folder.glob("*.csv"))
 csv_names = {csv_file.stem.lower() for csv_file in csv_files}
 
 def generate_staging_sql():
